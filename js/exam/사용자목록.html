@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>사용자 목록</title>
+  <link rel="stylesheet" href="사용자목록.css">
+  <style>
+    .box {
+      border: 3px solid lightblue;
+      padding: 20px;
+      margin: 10px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 15px lightskyblue;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    tr:nth-child(even) {
+      background-color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <table id="userTable">
+      <thead>
+        <tr>
+          <th style="text-align: center;">ID</th>
+          <th style="text-align: center;">이름</th>
+          <th style="text-align: center;">전화번호</th>
+          <th style="text-align: center;">주소</th>
+          <th style="text-align: center;">삭제</th>
+        </tr>
+      </thead>
+      <tbody> 
+      </tbody>
+    </table>
+  </div>
+<script src="사용자목록.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 10px;
+            border: 1px solid black;
+        }
+        
+        th {
+            text-align: center;
+        }
+        
+        td:not(:nth-child(2)) {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <table id="salaryTable">
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>이름</th>
+                <th>근무시간</th>
+                <th>시간당급여액</th>
+                <th>기본액</th>
+                <th>초과수당</th>
+                <th>합계</th>
+                <th>세액</th>
+                <th>실지불액</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <h2 id="totalPay"></h2>
+
+    <script>
+        function createRow(item, baseTime) {
+            var row = document.createElement('tr');
+            var overtime = Math.max(0, item.work_time - baseTime);
+            var regularTime = item.work_time;
+            var regularPay = regularTime * item.per_pay;
+            var overtimePay = overtime * item.per_pay * 0.5;
+            var total = regularPay + overtimePay;
+            var tax = total * 0.033;
+            var realPay = total - tax;
+
+            var td1 = document.createElement('td');
+            td1.style.textAlign = 'right';
+            td1.textContent = item.id;
+            row.appendChild(td1);
+
+            var td2 = document.createElement('td');
+            td2.textContent = item.username;
+            row.appendChild(td2);
+
+            var td3 = document.createElement('td');
+            td3.style.textAlign = 'right';
+            td3.textContent = item.work_time;
+            row.appendChild(td3);
+
+            var td4 = document.createElement('td');
+            td4.style.textAlign = 'right';
+            td4.textContent = item.per_pay.toLocaleString();
+            row.appendChild(td4);
+
+            var td5 = document.createElement('td');
+            td5.style.textAlign = 'right';
+            td5.textContent = regularPay.toLocaleString();
+            row.appendChild(td5);
+
+            var td6 = document.createElement('td');
+            td6.style.textAlign = 'right';
+            td6.textContent = overtimePay.toLocaleString();
+            row.appendChild(td6);
+
+            var td7 = document.createElement('td');
+            td7.style.textAlign = 'right';
+            td7.textContent = total.toLocaleString();
+            row.appendChild(td7);
+
+            var td8 = document.createElement('td');
+            td8.style.textAlign = 'right';
+            td8.textContent = tax.toLocaleString();
+            row.appendChild(td8);
+
+            var td9 = document.createElement('td');
+            td9.style.textAlign = 'right';
+            td9.textContent = realPay.toLocaleString();
+            row.appendChild(td9);
+
+            return row;
+        }
+
+        window.onload = function() {
+            var data = {
+                "base_time": 20,
+                "list": [
+                    {"id": 1, "username": "홍길동", "work_time": 40, "per_pay": 10000},
+                    {"id": 2, "username": "송민헌", "work_time": 20, "per_pay": 20000},
+                    {"id": 3, "username": "장길산", "work_time": 30, "per_pay": 30000},
+                    {"id": 4, "username": "임꺽정", "work_time": 10, "per_pay": 40000},
+                    {"id": 5, "username": "강민구", "work_time": 30, "per_pay": 10000}
+                ]
+            };
+
+            var tbody = document.getElementById('salaryTable').getElementsByTagName('tbody')[0];
+            var totalPay = 0;
+
+            data.list.forEach(function(item) {
+                var row = createRow(item, data.base_time);
+                totalPay += Number(row.getElementsByTagName('td')[8].innerText.replace(/,/g, ''));
+                tbody.appendChild(row);
+            });
+
+            document.getElementById('totalPay').innerText = "총 지불 금액: " + totalPay.toLocaleString();
+        }
+    </script>
+</body>
+</html>

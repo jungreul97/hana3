@@ -1,3 +1,5 @@
+import assert from 'assert';
+
 const arr = [1, 2, 3];
 console.log('🚀  arr:', { ...arr });
 console.log('🚀  arr:', arr.entries());
@@ -242,3 +244,4 @@ console.log('🚀  arr2:', arr2);
 // ex8) 위 7번 문제를 splice를 사용하지 말고 작성하시오.
 const ex8 = [...arr2.slice(0, 2), 'X', 'Y', 'Z', ...arr2.slice(-2)];
 console.log('🚀  ex8:', ex8);
+
